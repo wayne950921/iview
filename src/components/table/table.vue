@@ -10,7 +10,8 @@
                     :column-rows="columnRows"
                     :obj-data="objData"
                     :columns-width="columnsWidth"
-                    :data="rebuildData"></table-head>
+                    :data="rebuildData"
+                    :showSearch="showHeaderSearch"></table-head>
             </div>
             <div :class="[prefixCls + '-body']" :style="bodyStyle" ref="body" @scroll="handleBodyScroll"
                 v-show="!((!!localeNoDataText && (!data || data.length === 0)) || (!!localeNoFilteredDataText && (!rebuildData || rebuildData.length === 0)))">
@@ -167,6 +168,10 @@
             showHeader: {
                 type: Boolean,
                 default: true
+            },
+            showHeaderSearch: {
+                type: Boolean,
+                default: false
             },
             highlightRow: {
                 type: Boolean,

@@ -64,15 +64,15 @@
 
                 <th v-if="$parent.showVerticalScrollBar && rowIndex===0" :class='scrollBarCellClass()' :rowspan="headRows.length"></th>
             </tr>
-            <tr v-for="(cols, rowIndex) in headRows">
+            <tr v-for="(cols, rowIndex) in headRows" v-if="showSearch">
                 <th
                     v-for="(column, index) in cols"
                     :colspan="column.colSpan"
                     :rowspan="column.rowSpan"
                     :class="alignCls(column)">
                     <div :class="cellClasses(column)">
-                        <template>
-                            <Input />
+                        <template v-if="column.searchable">
+                            <render-header v-else :render="column.renderHeaderSearch" :column="column" :index="index"></render-header>
                         </template>
                     </div>
                 </th>
@@ -107,7 +107,8 @@
                 default: false
             },
             columnRows: Array,
-            fixedColumnRows: Array
+            fixedColumnRows: Array,
+            showSearch: Boolean
         },
         computed: {
             styles () {
