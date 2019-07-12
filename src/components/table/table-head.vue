@@ -72,7 +72,7 @@
                     :class="alignCls(column)">
                     <div :class="cellClasses(column)">
                         <template v-if="column.searchable">
-                            <render-header v-else :render="column.renderHeaderSearch" :column="column" :index="index"></render-header>
+                            <render-header v-if="column.renderHeaderSearch" :render="column.renderHeaderSearch" :column="column" :index="index"></render-header>
                         </template>
                     </div>
                 </th>
