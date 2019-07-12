@@ -71,52 +71,8 @@
                     :rowspan="column.rowSpan"
                     :class="alignCls(column)">
                     <div :class="cellClasses(column)">
-                        <template v-if="column.type === 'expand'">
-                            <span v-if="!column.renderHeader">{{ column.title || '' }}</span>
-                            <render-header v-else :render="column.renderHeader" :column="column" :index="index"></render-header>
-                        </template>
-                        <template v-else-if="column.type === 'selection'"><Checkbox :value="isSelectAll" :disabled="isSelectDisabled" @on-change="selectAll"></Checkbox></template>
-                        <template v-else>
-                            <span v-if="!column.renderHeader" :class="{[prefixCls + '-cell-sort']: column.sortable}" @click="handleSortByHead(getColumn(rowIndex, index)._index)">{{ column.title || '#' }}</span>
-                            <render-header v-else :render="column.renderHeader" :column="column" :index="index"></render-header>
-                            <span :class="[prefixCls + '-sort']" v-if="column.sortable">
-                                <i class="ivu-icon ivu-icon-md-arrow-dropup" :class="{on: getColumn(rowIndex, index)._sortType === 'asc'}" @click="handleSort(getColumn(rowIndex, index)._index, 'asc')"></i>
-                                <i class="ivu-icon ivu-icon-md-arrow-dropdown" :class="{on: getColumn(rowIndex, index)._sortType === 'desc'}" @click="handleSort(getColumn(rowIndex, index)._index, 'desc')"></i>
-                            </span>
-                            <Poptip
-                                v-if="isPopperShow(column)"
-                                v-model="getColumn(rowIndex, index)._filterVisible"
-                                placement="bottom"
-                                popper-class="ivu-table-popper"
-                                transfer
-                                @on-popper-hide="handleFilterHide(getColumn(rowIndex, index)._index)">
-                                <span :class="[prefixCls + '-filter']">
-                                    <i class="ivu-icon ivu-icon-ios-funnel" :class="{on: getColumn(rowIndex, index)._isFiltered}"></i>
-                                </span>
-
-                                <div slot="content" :class="[prefixCls + '-filter-list']" v-if="getColumn(rowIndex, index)._filterMultiple">
-                                    <div :class="[prefixCls + '-filter-list-item']">
-                                        <checkbox-group v-model="getColumn(rowIndex, index)._filterChecked">
-                                            <checkbox v-for="(item, index) in column.filters" :key="index" :label="item.value">{{ item.label }}</checkbox>
-                                        </checkbox-group>
-                                    </div>
-                                    <div :class="[prefixCls + '-filter-footer']">
-                                        <i-button type="text" size="small" :disabled="!getColumn(rowIndex, index)._filterChecked.length" @click.native="handleFilter(getColumn(rowIndex, index)._index)">{{ t('i.table.confirmFilter') }}</i-button>
-                                        <i-button type="text" size="small" @click.native="handleReset(getColumn(rowIndex, index)._index)">{{ t('i.table.resetFilter') }}</i-button>
-                                    </div>
-                                </div>
-                                <div slot="content" :class="[prefixCls + '-filter-list']" v-else>
-                                    <ul :class="[prefixCls + '-filter-list-single']">
-                                        <li
-                                            :class="itemAllClasses(getColumn(rowIndex, index))"
-                                            @click="handleReset(getColumn(rowIndex, index)._index)">{{ t('i.table.clearFilter') }}</li>
-                                        <li
-                                            :class="itemClasses(getColumn(rowIndex, index), item)"
-                                            v-for="item in column.filters"
-                                            @click="handleSelect(getColumn(rowIndex, index)._index, item.value)">{{ item.label }}</li>
-                                    </ul>
-                                </div>
-                            </Poptip>
+                        <template>
+                            <Input />
                         </template>
                     </div>
                 </th>
